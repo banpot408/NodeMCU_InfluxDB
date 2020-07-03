@@ -108,27 +108,20 @@ void loop() {
     Serial.println(client.getLastErrorMessage());
   }
   */
-  write_db(1, 12.3, 45.6);
+  write_db(10.1,20.2,30.3,40.4,50.5,60.6);
   Serial.println("Wait 1s");
-  delay(1000);
-  write_db(2, 78.9, 10.1);
-  Serial.println("Wait 1s");
-  delay(1000);
+  delay(3000);
 }
 
-void write_db(unsigned char sensor_type, float temp_value, float humi_value){
+void write_db(float sht15_temp_value, float sht15_humi_value,float sht21_temp_value, float sht21_humi_value,float cm2305_temp_value, float cm2305_humi_value){
   sensor.clearFields();
-  if(sensor_type == 1){
-    sensor.addField("SensorType", "SHT15");
-    sensor.addField("Tenp_Value", temp_value);
-    sensor.addField("Humi_Value", humi_value);
-    db_writePoint();
-  }else if(sensor_type == 2){
-    sensor.addField("SensorType", "dht22");
-    sensor.addField("Tenp_Value", temp_value);
-    sensor.addField("Humi_Value", humi_value);
-    db_writePoint();
-  }
+  sensor.addField("SHT15_Temp_Value", sht15_temp_value);
+  sensor.addField("SHT15_Humi_Value", sht15_humi_value);
+  sensor.addField("SHT21_Temp_Value", sht21_temp_value);
+  sensor.addField("SHT21_Humi_Value", sht21_humi_value);
+  sensor.addField("CM2305_Temp_Value", cm2305_temp_value);
+  sensor.addField("CM2305_Humi_Value", cm2305_humi_value);
+  db_writePoint();
 }
 
 void db_writePoint(){
